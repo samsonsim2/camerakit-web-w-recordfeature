@@ -1,4 +1,4 @@
-# Snap Camera Kit for Web - Front-End Template
+# Snap Camera Kit for Web - Front-End Template 🎥
 
 This repository serves as a **template** for building front-end applications using the Snap Camera Kit for Web. It provides essential features to help developers integrate Snap Lens effects into their web AR project with recording feature.
 
@@ -6,22 +6,22 @@ This repository serves as a **template** for building front-end applications usi
 > **DO NOT USE THIS REPOSITORY FOR CLIENT PROJECTS**  
 > The Camera Kit App Token will be exposed in the client-side code, making it accessible to anyone who visits the web AR app. This could lead to unauthorized usage and potential security risks.
 
-## Features
+## Features ✨
 
-- **Recording Feature**: Users can record videos showcasing Snap Lens effects by simply pressing a button.
-- **Share & Download**: After processing the video, users can:
-  - **Share**: Easily share the video to any social media app on their phone.
-  - **Download**: Save the video locally for future use.
+- **Recording Feature** 📹: Users can record videos showcasing Snap Lens effects by simply pressing a button.
+- **Share & Download** 💾: After processing the video, users can:
+  - **Share** 📤: Easily share the video to any social media app on their phone.
+  - **Download** ⬇️: Save the video locally for future use.
 
-## Tech Stack
+## Tech Stack 🛠️
 
-- Camera Kit for Web
-- Webpack (for bundling and local HTTPS development)
-- JavaScript/HTML/CSS
-- MediaRecorder API (for video recording)
-- Web Share API (for sharing functionality)
+- Camera Kit for Web 📸
+- Webpack (for bundling and local HTTPS development) 📦
+- JavaScript/HTML/CSS 💻
+- MediaRecorder API (for video recording) 🎬
+- Web Share API (for sharing functionality) 🔗
 
-## Project Structure
+## Project Structure 📁
 
 ```
 ├── src/                # Source files
@@ -34,9 +34,9 @@ This repository serves as a **template** for building front-end applications usi
 └── package.json       # Project dependencies
 ```
 
-## Getting Started
+## Getting Started 🚀
 
-### Prerequisites
+### Prerequisites 📋
 
 - **Node.js**: Ensure you have [Node.js](https://nodejs.org/) installed on your system.
 - **npm**: Comes bundled with Node.js, verify it is installed by running:
@@ -45,7 +45,7 @@ This repository serves as a **template** for building front-end applications usi
   ```
 - **Webpack**: This repository uses Webpack as the module bundler.
 
-### Installation
+### Installation 💿
 
 1. Clone the repository:
    ```
@@ -60,7 +60,7 @@ This repository serves as a **template** for building front-end applications usi
    npm install
    ```
 
-## Configuration
+## Configuration ⚙️
 
 1. In `src/config.js`, update your Camera Kit credentials:
    ```javascript
@@ -70,7 +70,7 @@ This repository serves as a **template** for building front-end applications usi
    ```
    You can obtain these credentials from [Snap's Camera Kit Dashboard](https://camera-kit.snapchat.com/).
 
-### Local Testing
+### Local Testing 🔍
 
 To test the project locally:
 
@@ -86,7 +86,7 @@ To test the project locally:
 
 2. Make changes to the code, and the server will automatically reload the app to reflect your updates.
 
-### Building for Production
+### Building for Production 🏗️
 
 To create a production-ready build, run:
 
@@ -96,33 +96,33 @@ npm run build
 
 The optimized output will be stored in the `docs` directory, ready for deployment.
 
-## Browser Support
+## Browser Support 🌐
 
-- Chrome (desktop & mobile) - Recommended
-- Safari (iOS 14.5+)
-- Firefox (desktop & mobile)
-- Edge (Chromium-based)
+- Chrome (desktop & mobile) - Recommended ✅
+- Safari (iOS 14.5+) 📱
+- Firefox (desktop & mobile) 🦊
+- Edge (Chromium-based) 🌍
 
 Note: For optimal AR experience, using Chrome on mobile devices is recommended.
 
-## Troubleshooting
+## Troubleshooting 🔧
 
-### Common Issues
+### Common Issues ⚠️
 
-- **Camera not working on mobile**:
+- **Camera not working on mobile** 📱:
   - Ensure you're using the HTTPS URL provided by webpack
   - Check if camera permissions are granted
   - Verify you're using a supported browser
-- **Lens not loading**:
+- **Lens not loading** 🎭:
   - Verify your Camera Kit credentials are correct
   - Check browser console for specific error messages
   - Ensure your lens is published and active
-- **Recording issues**:
+- **Recording issues** 🎬:
   - Check if device has sufficient storage
   - Ensure browser supports MediaRecorder API
   - Verify required permissions are granted
 
-### Mobile Debugging
+### Mobile Debugging 🐛
 
 To debug on mobile devices:
 
@@ -133,14 +133,14 @@ To debug on mobile devices:
 5. Click "inspect" to open Chrome DevTools for your mobile device
 6. You can now see console logs and debug your mobile web app
 
-## Credits
+## Credits 👏
 
 This repository is derived from Vincent Trastour's excellent Camera Kit workshop resources. Full credit goes to Vincent for the foundational materials that inspired this project.
 
 - **Workshop Resource**: [Camera Kit Workshop](https://maisonbleue.github.io/camera_kit_workshop/)
 - **YouTube Video**: [Camera Kit Workshop Video](https://www.youtube.com/watch?v=ZQM9Ua_JKMY&t=459s&ab_channel=SnapAR)
 
-## License
+## License 📄
 
 This project is open-source and can be modified and distributed under the terms of your chosen license. Please respect the credits provided above when using or sharing this template.
 
