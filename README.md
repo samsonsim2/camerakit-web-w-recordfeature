@@ -15,7 +15,7 @@ This repository serves as a **template** for building front-end applications usi
 
 ## Tech Stack 🛠️
 
-- Camera Kit for Web 📸
+- Camera Kit for Web V1.0.0📸
 - Webpack (for bundling and local HTTPS development) 📦
 - JavaScript/HTML/CSS 💻
 - MediaRecorder API (for video recording) 🎬
