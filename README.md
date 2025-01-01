@@ -64,9 +64,9 @@ This repository serves as a **template** for building front-end applications usi
 
 1. In `src/config.js`, update your Camera Kit credentials:
    ```javascript
-   const LENS_ID = "your-lens-id"
-   const GROUP_ID = "your-group-id"
-   const API_TOKEN = "your-api-token"
+   const apiToken = "your-api-token"
+   const lensID = "your-lens-id"
+   const groupID = "your-group-id"
    ```
    You can obtain these credentials from [Snap's Camera Kit Dashboard](https://camera-kit.snapchat.com/).
 

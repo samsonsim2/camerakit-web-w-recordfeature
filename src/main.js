@@ -9,9 +9,9 @@ import { fetchFile, toBlobURL } from "@ffmpeg/util"
 
   const ffmpeg = new FFmpeg()
   //Replace with your own api token, lens id, and group id
-  const apiToken = "01234567890"
-  const lensID = "01234567890"
-  const groupID = "01234567890"
+  const apiToken = "your-api-token"
+  const lensID = "your-lens-id"
+  const groupID = "your-group-id"
 
   const cameraKit = await bootstrapCameraKit({
     apiToken: apiToken,
