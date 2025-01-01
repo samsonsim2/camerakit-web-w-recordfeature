@@ -5,6 +5,11 @@ This repository serves as a **template** for building front-end applications usi
 > ⚠️ **SECURITY WARNING**  
 > **DO NOT USE THIS REPOSITORY FOR CLIENT PROJECTS**  
 > The Camera Kit App Token will be exposed in the client-side code, making it accessible to anyone who visits the web AR app. This could lead to unauthorized usage and potential security risks.
+>
+> 💡 **Recommended Usage**:
+>
+> - For development and testing only
+> - Use a server-side solution for production deployments
 
 ## Features ✨
 
@@ -62,13 +67,15 @@ This repository serves as a **template** for building front-end applications usi
 
 ## Configuration ⚙️
 
-1. In `src/config.js`, update your Camera Kit credentials:
+1. In `src/config.js`, replace the placeholder values:
    ```javascript
-   const apiToken = "your-api-token"
-   const lensID = "your-lens-id"
-   const groupID = "your-group-id"
+   export const CONFIG = {
+     LENS_ID: "__LENS_ID__", // Your Lens ID
+     GROUP_ID: "__GROUP_ID__", // Your Group ID
+     API_TOKEN: "__API_TOKEN__", // Your API Token
+   }
    ```
-   You can obtain these credentials from [Snap's Camera Kit Dashboard](https://camera-kit.snapchat.com/).
+2. These credentials can be obtained from [Snap's Camera Kit Dashboard](https://camera-kit.snapchat.com/)
 
 ### Local Testing 🔍
 
