@@ -1,7 +1,7 @@
 
 # Snap Camera Kit for Web - Front-End Template
 
-This repository serves as a **template** for building front-end applications using the Snap Camera Kit for Web. It provides essential features to help developers integrate Snap Lens effects into their projects effortlessly.
+This repository serves as a **template** for building front-end applications using the Snap Camera Kit for Web. It provides essential features to help developers integrate Snap Lens effects into their web AR project with recording feature.
 
 ## Features
 
@@ -46,9 +46,11 @@ To test the project locally:
    ```
    npm run serve
    ```
-   This will launch a local server, typically accessible at `http://localhost:8080`. Open the URL in your browser to test the application.
+   This will launch a local server, typically accessible at `http://localhost:9000`. Open the URL in your browser to test the application.
+
+   Using webpack, you can also access the local server with https on your mobile devices at `https://yourIPAddress:9000`. This will be provided on your terminal by webpack.
    
-2. Make changes to the code, and the server will automatically reload the app to reflect your updates.
+3. Make changes to the code, and the server will automatically reload the app to reflect your updates.
 
 ### Building for Production
 
@@ -60,7 +62,7 @@ The optimized output will be stored in the `dist` directory, ready for deploymen
 
 ## Usage
 
-1. Replace the default Snap Lens with your desired Lens.
+1. Replace the Snap Lens ID, Group ID and camerakit App Token with your own from MyLenses.
 2. Customize the UI elements (if needed).
 3. Build and deploy your web app to showcase Snap Lens effects with the recording, sharing, and downloading functionalities.
 
