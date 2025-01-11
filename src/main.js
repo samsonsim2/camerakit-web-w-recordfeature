@@ -2,6 +2,7 @@ import { bootstrapCameraKit, createMediaStreamSource, Transform2D } from "@snap/
 import { FFmpeg } from "@ffmpeg/ffmpeg"
 import { fetchFile, toBlobURL } from "@ffmpeg/util"
 import { CONFIG } from "./config.js"
+import "./index.v3.css"
 
 if (CONFIG.API_TOKEN === "__API_TOKEN__") {
   throw new Error("Please configure your Camera Kit credentials in config.js")
