@@ -44,7 +44,7 @@ project/
 │   ├── config.js      # Camera Kit credentials
 │   ├── index.html     # Main HTML file
 │   └── main.js        # Main JavaScript file
-├── docs/              # Production build output
+├── build/             # Production build output
 ├── webpack.config.js  # Webpack configuration
 └── package.json       # Project dependencies
 ```
@@ -101,7 +101,7 @@ Build the project:
 npm run build
 ```
 
-Output will be in the `docs` directory.
+Output will be in the `build` directory.
 
 ## Browser Support 🌐
 
