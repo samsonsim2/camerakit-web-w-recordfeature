@@ -8,7 +8,7 @@ module.exports = {
   entry: "./src/main.js",
   output: {
     filename: "[name].[contenthash].js",
-    path: path.resolve(__dirname, "docs"),
+    path: path.resolve(__dirname, "build"),
     chunkFilename: "[name].[contenthash].chunk.js",
     clean: true,
   },
@@ -43,7 +43,7 @@ module.exports = {
   },
   devServer: {
     static: {
-      directory: path.join(__dirname, "docs"),
+      directory: path.join(__dirname, "build"),
     },
     client: {
       overlay: false,
