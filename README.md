@@ -77,9 +77,9 @@ npm install
 
 ```javascript
 export const CONFIG = {
-  API_TOKEN: "your_api_token_here",
-  LENS_ID: "your_lens_id_here",
-  GROUP_ID: "your_group_id_here",
+  LENS_ID: "__LENS_ID__",
+  GROUP_ID: "__GROUP_ID__",
+  API_TOKEN: "__API_TOKEN__",
 }
 ```
 
@@ -133,10 +133,31 @@ Output will be in the `build` directory.
 
 ## License 📄
 
-[Your chosen license]
+MIT License
+
+Copyright (c) 2024
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
 ## Acknowledgments 👏
 
+- Based on Vincent Trastour's Camera Kit tutorial: [Watch on YouTube](https://www.youtube.com/watch?v=ZQM9Ua_JKMY)
 - Built with [Snap Camera Kit](https://kit.snapchat.com/camera-kit)
 - Uses [FFmpeg.wasm](https://github.com/ffmpegwasm/ffmpeg.wasm)
 
