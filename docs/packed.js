@@ -415,7 +415,7 @@ exports.splitHeaderValue = splitHeaderValue;
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames based on template
-/******/ 			return "" + chunkId + ".bundle.js";
+/******/ 			return "" + chunkId + ".packed.js";
 /******/ 		};
 /******/ 	})();
 /******/ 	
@@ -30554,7 +30554,7 @@ class FFmpeg {
     load = ({ classWorkerURL, ...config } = {}, { signal } = {}) => {
         if (!this.#worker) {
             this.#worker = classWorkerURL ?
-                new Worker(new URL(classWorkerURL, "file:///Users/boon/Documents/CameraKit/camerakit-web-w-recordfeature/node_modules/@ffmpeg/ffmpeg/dist/esm/classes.js"), {
+                new Worker(new URL(classWorkerURL, "file:///Users/boon/Documents/CameraKit/MickeyInRealLifeCamKit/node_modules/@ffmpeg/ffmpeg/dist/esm/classes.js"), {
                     type: "module",
                 }) :
                 // We need to duplicated the code here to enable webpack
@@ -30894,37 +30894,49 @@ const toBlobURL = async (url, mimeType, progress = false, cb) => {
     return URL.createObjectURL(blob);
 };
 
-;// CONCATENATED MODULE: ./src/config.js
-const CONFIG = {
-  LENS_ID: "__LENS_ID__",
-  GROUP_ID: "__GROUP_ID__",
-  API_TOKEN: "__API_TOKEN__",
+;// CONCATENATED MODULE: ./src/GetToken.js
+const apiUrl = 'https://slc1gpgcx4.execute-api.ap-southeast-1.amazonaws.com/Stage/GetCamKitTokenMickey'
+
+async function fetchData() {
+  try {
+    const response = await fetch(apiUrl, {
+      method: 'GET',
+    })
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
+
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.error('Error fetching data:', error)
+  }
 }
 
 ;// CONCATENATED MODULE: ./src/main.js
 
 
 
-
-
-if (CONFIG.API_TOKEN === "__API_TOKEN__") {
-  throw new Error("Please configure your Camera Kit credentials in config.js")
-}
-
-;(async function () {
+(async function () {
   let mediaRecorder
   let recordedChunks = []
   let isBackFacing = false
   let recordPressedCount = 0
-
+  let isLocal = true
+  let token
   const ffmpeg = new FFmpeg()
-  //Replace with your own api token, lens id, and group id
-  const apiToken = CONFIG.API_TOKEN
-  const lensID = CONFIG.LENS_ID
-  const groupID = CONFIG.GROUP_ID
+
+  //check if it's local testing, else use backend API to retrieve token
+  if (isLocal) {
+    token = "eyJhbGciOiJIUzI1NiIsImtpZCI6IkNhbnZhc1MyU0hNQUNQcm9kIiwidHlwIjoiSldUIn0.eyJhdWQiOiJjYW52YXMtY2FudmFzYXBpIiwiaXNzIjoiY2FudmFzLXMyc3Rva2VuIiwibmJmIjoxNzMzNTQ3ODE2LCJzdWIiOiJjYTMzYjYxYy05MjMwLTRmYTgtYTdhOC1kODYzY2U4ZTY3M2N-U1RBR0lOR340NzQ1MzYyNy0wMjU4LTRjZWMtOThiYy1kNWJlYjEyZjhmNjcifQ.nUsLv_PkdClNA-mezD9ssCe1SJmwCIi4VcudG6xZOng"
+  } else {
+    const secret = await fetchData()
+    token = JSON.parse(secret.secret).CAMKIT_TOKEN
+  }
 
   const cameraKit = await bootstrapCameraKit({
-    apiToken: apiToken,
+    apiToken: token,
   })
 
   //Set which camera will be used
@@ -30934,14 +30946,20 @@ if (CONFIG.API_TOKEN === "__API_TOKEN__") {
     video: {
       facingMode: { exact: "user" },
     },
-    audio: false, // Optional: Disable microphone
+    audio: false, // Optional: Disable audio
   }
 
-  //Get canvas element for live render target
+  //Get 2 canvas, one for live target and another for capture target
+  //At this point, they are still empty canvas
   const liveRenderTarget = document.getElementById("canvas")
+  const captureRenderTarget = document.getElementById("captureCanvas")
 
   //Create camera kit session and assign liveRenderTarget canvas to render out live render target from camera kit
   const session = await cameraKit.createSession({ liveRenderTarget })
+
+  //Set captureRenderTarget canvas to render out capture render target from camera kit
+  //It is not rendering out anything yet until session.play('capture') is called
+  captureRenderTarget.replaceWith(session.output.capture)
 
   // Request media stream with set camera perference
   let mediaStream = await navigator.mediaDevices.getUserMedia(constraints)
@@ -30956,22 +30974,28 @@ if (CONFIG.API_TOKEN === "__API_TOKEN__") {
   await session.play() //plays live target by default
 
   //Assign Lens ID (left) and Group ID(Right) to camera kit
-  const lens = await cameraKit.lensRepository.loadLens(lensID, groupID)
+  const lens = await cameraKit.lensRepository.loadLens("a4679a23-c2b9-4999-b204-d59e60cc09ae", "1d3a0bf4-7ebb-4078-8b47-8eb1062ac684")
 
   await session.applyLens(lens)
 
   //Get all elements require to perform logics
   const recordButton = document.getElementById("record-button")
   const recordOutline = document.getElementById("outline")
+  const closePreviewParent = document.getElementById("close-preview")
+  const closeButton = document.getElementById("close-button")
   const actionbutton = document.getElementById("action-buttons")
   const switchButton = document.getElementById("switch-button")
   const loadingIcon = document.getElementById("loading")
-  const backButtonContainer = document.getElementById("back-button-container")
 
   recordButton.addEventListener("click", async () => {
     //first check if it should start record or stop record
     // even number = start, odd number = stop
     if (recordPressedCount % 2 == 0) {
+      //disable live canvas so the capture canvas that is behind live canvas will be shown instead
+      // capture canvas z-index is set behind live canvas in css
+      liveRenderTarget.style.display = "none"
+      //play capture render target so capture canvas will render len
+      await session.play("capture")
       //Manage media recorder and start recording
       manageMediaRecorder(session)
 
@@ -30988,6 +31012,21 @@ if (CONFIG.API_TOKEN === "__API_TOKEN__") {
     recordPressedCount += 1
   })
 
+  closeButton.addEventListener("click", async () => {
+    //remove preview window
+    removePreview()
+    //show live render targetcanvas again
+    liveRenderTarget.style.display = "block"
+    //need to play live target for canvas to show anything
+    await session.play("live")
+    //show record button back
+    RecordButtonToggle(true)
+    //Hide and show buttons for pre-record
+    actionbutton.style.display = "none"
+    closePreviewParent.style.display = "none"
+    switchButton.style.display = "block"
+  })
+
   switchButton.addEventListener("click", () => {
     //update & switch between front and back camera
     updateCamera(session)
@@ -30998,6 +31037,19 @@ if (CONFIG.API_TOKEN === "__API_TOKEN__") {
   Functions
   ========================================
   */
+
+  //Function to display record preview windows after recording
+  function displayPreview(dataURL) {
+    const preview = document.createElement("video")
+    preview.src = dataURL
+    preview.id = "preview"
+    preview.controls = true // Allow playback controls
+    preview.autoplay = true
+    preview.playsInline = true
+    preview.id = "preview"
+    preview.style = "position: fixed; top: 2%; left: 10%; width: 80vw; height: auto; z-index: 999;"
+    document.body.appendChild(preview)
+  }
 
   //To convert recorded video to proper mp4 format that can be shared to social media
   async function fixVideoDuration(blob) {
@@ -31036,6 +31088,17 @@ if (CONFIG.API_TOKEN === "__API_TOKEN__") {
     }
   }
 
+  //Function to completely remove preview window
+  function removePreview() {
+    const preview = document.getElementById("preview")
+    if (preview) {
+      preview.remove() // Remove the element from the DOM
+      console.log("Preview removed")
+    } else {
+      console.log("No preview to remove")
+    }
+  }
+
   //Fucntion to switch camera between front & back
   async function updateCamera(session) {
     isBackFacing = !isBackFacing
@@ -31068,7 +31131,7 @@ if (CONFIG.API_TOKEN === "__API_TOKEN__") {
   //Function to setup media recorder and start recording
   function manageMediaRecorder(session) {
     console.log("session output cature")
-    const ms = liveRenderTarget.captureStream(60)
+    const ms = session.output.capture.captureStream(60)
     mediaRecorder = new MediaRecorder(ms, { mimeType: "video/mp4" })
     console.log("create media recorder")
     recordedChunks = []
@@ -31091,22 +31154,23 @@ if (CONFIG.API_TOKEN === "__API_TOKEN__") {
       const url = URL.createObjectURL(fixedBlob)
       //hide loading icon once video is done processing
       loadingIcon.style.display = "none"
-      displayPostRecordButtons(url)
+      displayPreview(url)
+      displayPostRecordButtons()
     }
     //Start recording
     mediaRecorder.start()
   }
 
-  function displayPostRecordButtons(url, fixedBlob) {
+  function displayPostRecordButtons() {
     actionbutton.style.display = "block"
-    backButtonContainer.style.display = "block"
+    closePreviewParent.style.display = "block"
     switchButton.style.display = "none"
 
     //Logic for when download button is selected
     document.getElementById("download-button").onclick = () => {
       const a = document.createElement("a")
       a.href = url
-      a.download = "recording.mp4" //Change downloaded file name here
+      a.download = "MickeyInRealLife.mp4" //Change downloaded file name here
       a.click()
       a.remove()
     }
@@ -31114,7 +31178,7 @@ if (CONFIG.API_TOKEN === "__API_TOKEN__") {
     //Logic for when share button is selected
     document.getElementById("share-button").onclick = async () => {
       try {
-        const file = new File([fixedBlob], "recording.mp4", { type: "video/mp4" }) // Convert blob to file
+        const file = new File([fixedBlob], "MickeyInRealLife.mp4", { type: "video/mp4" }) // Convert blob to file
 
         // Check if sharing files is supported
         if (navigator.canShare && navigator.canShare({ files: [file] })) {
@@ -31131,13 +31195,6 @@ if (CONFIG.API_TOKEN === "__API_TOKEN__") {
         console.error("Error while sharing:", error)
       }
     }
-
-    document.getElementById("back-button").addEventListener("click", () => {
-      //TODO: Add logic to go back to recording
-      actionbutton.style.display = "none"
-      backButtonContainer.style.display = "none"
-      RecordButtonToggle(true)
-    })
   }
 })()
 
