@@ -88,10 +88,22 @@ export const CONFIG = {
 Start the development server:
 
 ```bash
-npm run dev
+npm run serve
 ```
 
-Access at `http://localhost:9000`
+Webpack will start a development server with HTTPS enabled.
+You'll see two URLs in the terminal:
+
+- Local: `https://localhost:9000`
+- Network: `https://YOUR_IP_ADDRESS:9000` (for mobile devices)
+
+To test on your mobile device, use the Network URL shown in your terminal.
+
+⚠️ **Notes**:
+
+- Your mobile device must be on the same WiFi network as your computer
+- Accept the self-signed certificate warning in your browser when testing
+- HTTPS is required for camera access on mobile devices
 
 ### Production Build 🏗️
 
