@@ -115,6 +115,40 @@ npm run build
 
 Output will be in the `build` directory.
 
+### Deployment on Vercel 🚀
+
+To deploy securely on Vercel without exposing your Camera Kit credentials:
+
+1. Create a Vercel account at [vercel.com](https://vercel.com)
+
+2. Import your GitHub repository:
+
+   - Go to [vercel.com/new](https://vercel.com/new)
+   - Select your repository
+   - Click "Import"
+
+3. Override `config.js` in Vercel:
+
+   - In your project dashboard, go to "Settings" → "Environment Variables"
+   - Add a new variable named `CONFIG_JS` with this content:
+     ```javascript
+     export const CONFIG = {
+       API_TOKEN: "your_api_token_here",
+       LENS_ID: "your_lens_id_here",
+       GROUP_ID: "your_group_id_here",
+     }
+     ```
+
+4. Deploy your project:
+   - Vercel will automatically deploy when you push changes to your repository
+   - You can also trigger manual deployments from the Vercel dashboard
+
+⚠️ **Security Note**:
+
+- Using environment variables on Vercel keeps your credentials secure
+- Never commit actual credentials to your repository
+- Keep your local `config.js` for development, Vercel will use its own version in production
+
 ## Browser Support 🌐
 
 - Chrome (latest) ✅
