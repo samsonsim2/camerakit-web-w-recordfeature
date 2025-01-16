@@ -6,7 +6,12 @@ A web application demonstrating Snap's Camera Kit integration with video recordi
 
 > ⚠️ **SECURITY WARNING**  
 > **DO NOT USE THIS REPOSITORY FOR CLIENT PROJECTS**  
-> The Camera Kit API Token is exposed in client-side code. For production use, implement server-side token handling.
+> The Camera Kit API Token is exposed in client-side code in development.
+> For production deployment:
+>
+> - Use Vercel's environment variables (see [Deployment on Vercel](#deployment-on-vercel) section)
+> - Never commit real credentials to GitHub
+> - Keep sensitive tokens in your local `config.js` for development only
 
 ## Features ✨
 
