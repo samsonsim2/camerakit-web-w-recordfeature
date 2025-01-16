@@ -1,5 +1,7 @@
 # Camera Kit Web Demo with Recording Feature 🎥
 
+[繁體中文](README.zh-TW.md) | English
+
 A web application demonstrating Snap's Camera Kit integration with video recording capabilities. This project allows users to apply Snap Lenses and record videos with the effects.
 
 > ⚠️ **SECURITY WARNING**  
@@ -53,9 +55,20 @@ project/
 
 ### Prerequisites 📋
 
-- Node.js (v14 or higher)
-- npm (v6 or higher)
+- Node.js (v14 or higher) - [Download here](https://nodejs.org/)
+- npm (comes with Node.js)
 - Camera Kit credentials from Snap
+
+> 💡 **New to Node.js?**
+>
+> 1. Download and install Node.js from [nodejs.org](https://nodejs.org/)
+> 2. After installation, open your terminal/command prompt
+> 3. Verify installation by typing:
+>    ```bash
+>    node --version
+>    npm --version
+>    ```
+>    Both commands should show version numbers
 
 ### Installation 💿
 
@@ -117,31 +130,26 @@ Output will be in the `build` directory.
 
 ### Deployment on Vercel 🚀
 
+> 💡 **New to Vercel?**  
+> Vercel is a platform that makes it easy to deploy websites. You'll need:
+>
+> 1. A GitHub account - [Sign up here](https://github.com/signup)
+> 2. Your project code pushed to GitHub
+> 3. A Vercel account (you can sign up with your GitHub account)
+
 To deploy securely on Vercel without exposing your Camera Kit credentials:
 
 1. Create a Vercel account at [vercel.com](https://vercel.com)
+
+   - Click "Sign Up"
+   - Choose "Continue with GitHub"
+   - Follow the authorization steps
 
 2. Import your GitHub repository:
 
    - Go to [vercel.com/new](https://vercel.com/new)
    - Select your repository
-   - Click "Import"
-
-3. Override `config.js` in Vercel:
-
-   - In your project dashboard, go to "Settings" → "Environment Variables"
-   - Add a new variable named `CONFIG_JS` with this content:
-     ```javascript
-     export const CONFIG = {
-       API_TOKEN: "your_api_token_here",
-       LENS_ID: "your_lens_id_here",
-       GROUP_ID: "your_group_id_here",
-     }
-     ```
-
-4. Deploy your project:
-   - Vercel will automatically deploy when you push changes to your repository
-   - You can also trigger manual deployments from the Vercel dashboard
+   - Click "Import" and wait for deployment to complete
 
 ⚠️ **Security Note**:
 
