@@ -152,13 +152,67 @@ npm run build
 
    - 前往 [vercel.com/new](https://vercel.com/new)
    - 選擇你的儲存庫
-   - 點擊「Import」並等待部署完成
+   - 點擊「Import」
+
+3. 新增 Camera Kit 憑證作為環境變數：
+
+   - 在專案儀表板中，前往「Settings」→「Environment Variables」
+   - 依照以下格式新增三個變數：
+     ```
+     LENS_ID=你的實際_lens_id
+     GROUP_ID=你的實際_group_id
+     API_TOKEN=你的實際_api_token
+     ```
+
+4. 在專案根目錄建立 `vercel.json` 檔案：
+
+   ```json
+   {
+     "buildCommand": "npm run build",
+     "outputDirectory": "build",
+     "rewrites": [
+       {
+         "source": "/config.js",
+         "destination": "/api/config"
+       }
+     ]
+   }
+   ```
+
+5. 建立新檔案 `api/config.js`：
+
+   ```javascript
+   export const config = {
+     runtime: "edge",
+   }
+
+   export default function handler(request) {
+     const config = `export const CONFIG = {
+       LENS_ID: "${process.env.LENS_ID}",
+       GROUP_ID: "${process.env.GROUP_ID}",
+       API_TOKEN: "${process.env.API_TOKEN}"
+     }`
+
+     return new Response(config, {
+       headers: {
+         "Content-Type": "application/javascript",
+       },
+     })
+   }
+   ```
+
+此設定將會：
+
+- 在 Vercel 環境中安全保存憑證
+- 動態生成 config.js 檔案
+- 避免在儲存庫中暴露憑證
 
 ⚠️ **安全注意事項**：
 
 - 使用 Vercel 環境變數可確保憑證安全
 - 切勿將實際憑證提交到儲存庫
-- 本機開發使用本地 `config.js`，Vercel 會使用其環境變數版本
+- 本機開發時複製 `config.js.example` 為 `config.js` 並填入憑證
+- API 路由會在生產環境中安全地提供憑證
 
 ## 瀏覽器支援 🌐
 

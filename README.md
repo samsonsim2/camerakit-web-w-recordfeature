@@ -9,7 +9,7 @@ A web application demonstrating Snap's Camera Kit integration with video recordi
 > The Camera Kit API Token is exposed in client-side code in development.
 > For production deployment:
 >
-> - Use Vercel's environment variables (see [Deployment on Vercel](#deployment-on-vercel) section)
+> - Use Vercel's environment variables (see [Deployment on Vercel](#deployment-on-vercel-) section)
 > - Never commit real credentials to GitHub
 > - Keep sensitive tokens in your local `config.js` for development only
 
@@ -154,13 +154,67 @@ To deploy securely on Vercel without exposing your Camera Kit credentials:
 
    - Go to [vercel.com/new](https://vercel.com/new)
    - Select your repository
-   - Click "Import" and wait for deployment to complete
+   - Click "Import"
+
+3. Add your Camera Kit credentials as environment variables:
+
+   - In your project dashboard, go to "Settings" → "Environment Variables"
+   - Add these three variables exactly as shown:
+     ```
+     LENS_ID=your_actual_lens_id_here
+     GROUP_ID=your_actual_group_id_here
+     API_TOKEN=your_actual_api_token_here
+     ```
+
+4. Create a new file called `vercel.json` in your project root:
+
+   ```json
+   {
+     "buildCommand": "npm run build",
+     "outputDirectory": "build",
+     "rewrites": [
+       {
+         "source": "/config.js",
+         "destination": "/api/config"
+       }
+     ]
+   }
+   ```
+
+5. Create a new file `api/config.js`:
+
+   ```javascript
+   export const config = {
+     runtime: "edge",
+   }
+
+   export default function handler(request) {
+     const config = `export const CONFIG = {
+       LENS_ID: "${process.env.LENS_ID}",
+       GROUP_ID: "${process.env.GROUP_ID}",
+       API_TOKEN: "${process.env.API_TOKEN}"
+     }`
+
+     return new Response(config, {
+       headers: {
+         "Content-Type": "application/javascript",
+       },
+     })
+   }
+   ```
+
+This setup will:
+
+- Keep your credentials secure in Vercel's environment
+- Generate the config.js file dynamically
+- Never expose credentials in your repository
 
 ⚠️ **Security Note**:
 
 - Using environment variables on Vercel keeps your credentials secure
 - Never commit actual credentials to your repository
-- Keep your local `config.js` for development, Vercel will use its own version in production
+- Use `config.js.example` for local development (copy to `config.js` and add your credentials)
+- The API route will securely provide credentials in production
 
 ## Browser Support 🌐
 
