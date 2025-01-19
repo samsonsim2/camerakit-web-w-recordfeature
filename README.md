@@ -1,5 +1,8 @@
 # Camera Kit Web Demo with Recording Feature 🎥
 
+> Created by [gowaaa](https://www.gowaaa.com) 🚀
+> A creative technology studio specializing in AR experiences
+
 [繁體中文](README.zh-TW.md) | English
 
 A web application demonstrating Snap's Camera Kit integration with video recording capabilities. This project allows users to apply Snap Lenses and record videos with the effects.

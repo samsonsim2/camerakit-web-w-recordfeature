@@ -1,5 +1,8 @@
 # Camera Kit 網頁示範（含錄影功能）🎥
 
+> 由 [gowaaa](https://www.gowaaa.com) 開發 🚀
+> 專注於 AR 體驗的創意科技工作室
+
 一個展示 Snap Camera Kit 整合的網頁應用程式，允許使用者套用 Snap 濾鏡並錄製影片。
 
 > ⚠️ **安全警告**  
