@@ -37,33 +37,33 @@ body {
 }
 
 #outline {
-  position: absolute; /* Keep it absolute for flexible positioning */
-  bottom: 10%; /* Adjust the distance from the bottom of the screen */
-  left: 50%; /* Center horizontally */
-  transform: translateX(-50%); /* Offset to truly center */
-  height: 200px; /* Button height */
-  width: 200px; /* Button width */
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  height: var(--button-size, 200px); /* Default for mobile */
+  width: var(--button-size, 200px);
   border: none;
-  z-index: 900; /* Ensure it appears above other elements */
+  z-index: 900;
   transition: background-color 0.2s ease;
 }
 
 #record-button {
-  position: absolute; /* Flexible positioning */
-  bottom: 10%; /* Distance from the bottom */
-  left: 50%; /* Center horizontally */
-  transform: translateX(-50%); /* Center the element perfectly */
-  height: 200px; /* Set height */
-  width: 200px; /* Set width */
-  background-image: url("../assets/RecordButton.png"); /* Path to your image */
-  background-size: cover; /* Ensure the image covers the button */
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Prevent tiling */
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  height: var(--button-size, 200px); /* Default for mobile */
+  width: var(--button-size, 200px);
+  background-image: url("../assets/RecordButton.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   background-color: transparent;
-  border-radius: 50%; /* Circular button */
-  border: none; /* Remove default border */
-  z-index: 1000; /* Ensure it's above other elements */
-  transition: background-color 0.2s ease; /* Optional hover/interaction effect */
+  border-radius: 50%;
+  border: none;
+  z-index: 1000;
+  transition: background-color 0.2s ease;
 }
 
 #record-button.pressed {
@@ -85,18 +85,16 @@ body {
 
 #back-button-container {
   position: absolute;
-  display: block;
-  position: absolute;
-  top: 25%;
-  left: 50%;
+  top: 3%;
+  left: 5%;
   z-index: 1000;
 }
 
 #back-button {
-  transform: translateX(-50%);
+  transform: none;
   background-color: transparent;
-  height: 200px;
-  width: 200px;
+  height: 70px;
+  width: 70px;
   color: transparent;
   border: none;
   cursor: pointer;
@@ -113,7 +111,7 @@ body {
 }
 
 #back-button:active {
-  transform: translate(-45%, -5%);
+  transform: translate(5%, 5%);
 }
 
 #share-button {
@@ -211,4 +209,26 @@ body {
   to {
     transform: rotate(360deg);
   }
+}
+
+/* Desktop-specific styles */
+.desktop #outline,
+.desktop #record-button {
+  height: 100px;
+  width: 100px;
+}
+
+.desktop #share-button {
+  height: 50px;
+  width: 50px;
+}
+
+.desktop #download-button {
+  height: 50px;
+  width: 50px;
+}
+
+/* Hide switch button on desktop */
+.desktop #switch-cam {
+  display: none;
 }

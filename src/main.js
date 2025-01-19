@@ -24,14 +24,19 @@ if (CONFIG.API_TOKEN === "__API_TOKEN__") {
     apiToken: apiToken,
   })
 
-  //Set which camera will be used
-  //'user' = front camera
-  //'environment' = back camera
+  // Add device detection at the start of the async function
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+  // Add desktop class to body if not mobile
+  if (!isMobile) {
+    document.body.classList.add("desktop")
+  }
+
+  //Set camera constraints based on device type
   const constraints = {
     video: {
-      facingMode: { exact: "user" },
+      facingMode: isMobile ? { exact: "user" } : "user",
     },
-    audio: false, // Optional: Disable microphone
+    audio: false,
   }
 
   //Get canvas element for live render target
@@ -144,12 +149,11 @@ if (CONFIG.API_TOKEN === "__API_TOKEN__") {
 
     mediaStream = await navigator.mediaDevices.getUserMedia({
       video: {
-        facingMode: isBackFacing ? "environment" : "user",
+        facingMode: isBackFacing ? (isMobile ? { exact: "environment" } : "environment") : isMobile ? { exact: "user" } : "user",
       },
     })
 
     const source = createMediaStreamSource(mediaStream, {
-      // NOTE: This is important for world facing experiences
       cameraType: isBackFacing ? "environment" : "user",
     })
 
@@ -157,8 +161,7 @@ if (CONFIG.API_TOKEN === "__API_TOKEN__") {
     if (!isBackFacing) {
       source.setTransform(Transform2D.MirrorX)
     }
-    await source.setRenderSize(window.innerWidth, window.innerHeight)
-
+    updateRenderSize()
     await session.play()
   }
 
@@ -233,7 +236,36 @@ if (CONFIG.API_TOKEN === "__API_TOKEN__") {
       //TODO: Add logic to go back to recording
       actionbutton.style.display = "none"
       backButtonContainer.style.display = "none"
+      switchButton.style.display = "block"
       RecordButtonToggle(true)
     })
   }
+
+  // Update the updateRenderSize function to handle both mobile and desktop
+  function updateRenderSize() {
+    const width = window.innerWidth
+    const height = window.innerHeight
+
+    let renderWidth, renderHeight
+
+    if (isMobile) {
+      // Mobile: use full screen
+      renderWidth = width
+      renderHeight = height
+    } else {
+      // Desktop: use full window size
+      renderWidth = width
+      renderHeight = height
+    }
+
+    liveRenderTarget.style.width = `${renderWidth}px`
+    liveRenderTarget.style.height = `${renderHeight}px`
+    source.setRenderSize(renderWidth, renderHeight)
+  }
+
+  // Add window resize listener
+  window.addEventListener("resize", updateRenderSize)
+
+  // Update initial render size
+  updateRenderSize()
 })()
