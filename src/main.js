@@ -72,6 +72,7 @@ if (CONFIG.API_TOKEN === "__API_TOKEN__") {
 
   //Get all elements require to perform logics
   const recordButton = document.getElementById("record-button")
+  const audioButton = document.getElementById("audio-button")
   const recordOutline = document.getElementById("outline")
   const actionbutton = document.getElementById("action-buttons")
   const switchButton = document.getElementById("switch-button")
@@ -108,6 +109,12 @@ if (CONFIG.API_TOKEN === "__API_TOKEN__") {
   Functions
   ========================================
   */
+
+  //play audio
+  function playAudio() {
+    const audio = document.getElementById('myAudio');
+    audio.play();
+  }
 
   //To convert recorded video to proper mp4 format that can be shared to social media
   async function fixVideoDuration(blob) {
@@ -264,6 +271,16 @@ if (CONFIG.API_TOKEN === "__API_TOKEN__") {
     liveRenderTarget.style.height = `${renderHeight}px`
     source.setRenderSize(renderWidth, renderHeight)
   }
+
+  //Play Audio
+  function playAudio() {
+    const audio = document.getElementById('myAudio');
+    audio.play();
+  }
+
+  document.getElementById("audio-button").addEventListener("click", () => {
+    playAudio()
+  })
 
   // Add window resize listener
   window.addEventListener("resize", updateRenderSize)
