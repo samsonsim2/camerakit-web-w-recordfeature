@@ -183,6 +183,49 @@ body {
   transition: transform 0.2s ease; /* Smooth hover animation */
 }
 
+#go-back {
+  position: absolute;
+  top: 3%;
+  left: 5%;
+  z-index: 951;
+}
+
+#back-button {
+  height: 70px;
+  width: 70px;
+  background-image: url("../assets/BackButton.png"); /* Green background */
+  background-size: contain; /* Ensure the image covers the button */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Preent tiling */
+  background-color: transparent;
+  border: none;
+  user-select: none; /* Disable text selection */
+  outline: none;
+  transition: transform 0.2s ease; /* Smooth hover animation */
+}
+
+#voice {
+  position: absolute;
+  bottom: 3%;
+  right: 5%;
+  z-index: 952;
+}
+
+#audio-button {
+  height: 70px;
+  width: 70px;
+  background-image: url("../assets/Audio.png"); /* Green background */
+  background-size: contain; /* Ensure the image covers the button */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Preent tiling */
+  background-color: transparent;
+  border: none;
+  user-select: none; /* Disable text selection */
+  outline: none;
+  transition: transform 0.2s ease; /* Smooth hover animation */
+}
+
+
 #switch-button:active {
   transform: translate(5%, 5%); /* Only scale without affecting translation */
 }
